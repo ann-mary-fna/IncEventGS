@@ -51,7 +51,7 @@ eval_end_idx: 279
 eval_step_size: 2
 
 data:
-  datadir: /run/determined/workdir/datasets/event_slam/CVPR2025/open_data/event_replica/room0
+  datadir: /content/room0
   scene: None
   output: output/final/room0
   exp_name: demo
