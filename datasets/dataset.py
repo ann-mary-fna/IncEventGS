@@ -331,7 +331,7 @@ class ReplicaEventDataset(BaseDataset):
         self.translation = translation
         self.sc_factor = sc_factor
         self.crop = crop
-        self.img_files = sorted(glob.glob(f'{self.basedir}/images/*.jpg'))
+        self.img_files = sorted(glob.glob(f'{self.basedir}/images/*.png'))
         self.depth_paths = sorted(glob.glob(f'{self.basedir}/Depth_exr/*.exr'))
         poses_ts_path = os.path.join(basedir, 'poses_ts.txt')
         gt_pose_path = os.path.join(self.basedir, 'groundtruth.txt')
@@ -355,6 +355,7 @@ class ReplicaEventDataset(BaseDataset):
         
         training_start_index = self.config["data"]["training_start_index"]
         training_end_index = self.config["data"]["training_end_index"]
+
         gt_poses_ts = gt_poses_ts[training_start_index:training_end_index]
         gt_poses = gt_poses[training_start_index:training_end_index].reshape(-1, 4, 4)
         self.img_files = self.img_files[training_start_index:training_end_index]
