@@ -51,7 +51,7 @@ eval_end_idx: 279
 eval_step_size: 2
 
 data:
-  datadir: /content/drive/MyDrive/room0
+  datadir: /content/drive/MyDrive/inceventgs_snow
   scene: None
   output: /content/output
   exp_name: demo

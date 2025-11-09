@@ -221,7 +221,7 @@ class SimuEventDataset(BaseDataset):
 
 
     # change the event loading 
-        self.events = None # np.load(os.path.join(basedir, 'event_threshold_0.1', 'gray_events_data.npy'))
+        self.events =  np.load(os.path.join(basedir, 'event_threshold_0.1', 'gray_events_data.npy'))
         print("finished event loading!")
 
     def __len__(self):
