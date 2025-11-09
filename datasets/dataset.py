@@ -341,6 +341,8 @@ class ReplicaEventDataset(BaseDataset):
         
         self.original_img_file_paths = self.img_files.copy()
         self.original_gt_poses_ts = gt_poses_ts.copy()
+
+        print ("---------------", self.original_gt_poses_ts.shape[0],  len(self.original_img_file_paths))
         self.original_gt_poses = torch.from_numpy(gt_poses.copy().reshape(-1, 4, 4)).float()
         assert self.original_gt_poses_ts.shape[0] == len(self.original_img_file_paths)
         assert self.original_gt_poses_ts.shape[0] == self.original_gt_poses.shape[0]
