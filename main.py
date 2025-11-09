@@ -1540,6 +1540,8 @@ class SLAM():
         
         incre_sampling_segs_end = np.linspace(10, event_total_num-10, incre_sampling_seg_num_expected).astype(int)
         start_tmp_ = np.searchsorted(incre_sampling_segs_end, max_n_winsize)
+
+        #error 
         if(incre_sampling_segs_end[start_tmp_]<=max_n_winsize):
             start_tmp_ = start_tmp_+1
         incre_sampling_segs_end = incre_sampling_segs_end[start_tmp_:]
@@ -2444,7 +2446,8 @@ class SLAM():
         
         # start optimization 
         data_loader = DataLoader(self.dataset, num_workers=self.config['data']['num_workers'])
-
+        print ( "---------- tqdm len - no of iter?? ----------")
+        print ( len( data_loader ))
         for i, batch in tqdm(enumerate(data_loader)):
             if i < num_frames_to_skip:
                 continue 
@@ -2544,7 +2547,7 @@ class SLAM():
 
         # start optimization 
         data_loader = DataLoader(self.dataset, num_workers=self.config['data']['num_workers'])
-
+        #number of frames is initialized here
         for i, batch in tqdm(enumerate(data_loader)):
             cur_frame_id = batch["frame_id"].item()
             
@@ -2673,6 +2676,8 @@ class SLAM():
                     sliding_window_sz = self.config["sliding_window_sz"]
                     traj_mode = 'linear'
                     seg_num_ = self.config["BA"]["incre_sampling_seg_num_expected"]
+
+                    # where error comes 
                     self.bundle_adjustment(BA_batch[-sliding_window_sz:], traj_mode, num_optim_steps_BA, seg_num_)
                 
                 if (i+1)>=20 and (i+1)%self.config["BA"]["global_BA_step"]==0:
