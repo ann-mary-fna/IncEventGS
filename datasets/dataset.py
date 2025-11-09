@@ -218,7 +218,10 @@ class SimuEventDataset(BaseDataset):
         self.tracking_mask = None
         self.frame_ids = range(0, len(self.img_files))
         self.num_frames = len(self.frame_ids)
-        self.events = np.load(os.path.join(basedir, 'event_threshold_0.1', 'gray_events_data.npy'))
+
+
+    # change the event loading 
+        self.events = None # np.load(os.path.join(basedir, 'event_threshold_0.1', 'gray_events_data.npy'))
         print("finished event loading!")
 
     def __len__(self):
@@ -625,6 +628,9 @@ class TUM_VIEDataset(BaseDataset):
         self.poses_ts_us = self.poses_ts_us[::interval_selection]
         poses = poses[::interval_selection]
         self.selected_frame_ids = range(0, self.poses_ts_us.shape[0])
+
+
+        #check here 
         training_start_index = self.config["data"]["training_start_index"]
         training_end_index = self.config["data"]["training_end_index"]
         self.poses_ts_us = self.poses_ts_us[training_start_index:training_end_index]
