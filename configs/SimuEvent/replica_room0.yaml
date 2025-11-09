@@ -46,9 +46,9 @@ opt_pose: True
 initOnly: False
 
 evaluate_img: True
-eval_start_idx: 181 # corresponds in original files, not data.training_start_index
-eval_end_idx: 279
-eval_step_size: 2
+eval_start_idx: 101 # corresponds in original files, not data.training_start_index
+eval_end_idx: 129
+eval_step_size: 1 # old value =  2
 
 data:
   datadir: /content/drive/MyDrive/inceventgs_snow
@@ -57,15 +57,15 @@ data:
   exp_name: demo
   trainskip: 1
   downsample_factor: 1
-  training_start_index: 90 # the size of training data depends on your computer memory size
-  training_end_index: 140 # -1 for the last index
+  training_start_index: 0 # the size of training data depends on your computer memory size
+  training_end_index: 100 # -1 for the last index
   interval_selection: 2
 
 initialization:
   num_frames_for_init: 5  # use how many frames event data in the initial
   incre_sampling_seg_num_expected: 200
-  min_n_winsize: 80000
-  max_n_winsize: 400100
+  min_n_winsize: 8000
+  max_n_winsize: 40010
   training_batch_size: 5 #depends your GPU memory size
   visualize_every_iter: 100
   visualize_intermediate_img: True
@@ -74,8 +74,8 @@ initialization:
 
 BA:
   incre_sampling_seg_num_expected: 100
-  min_n_winsize: 80000
-  max_n_winsize: 400100
+  min_n_winsize: 8000
+  max_n_winsize: 40010
   training_batch_size: 5 #depends your GPU memory size
   visualize_every_iter: 500
   visualize_intermediate_img: False
