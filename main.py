@@ -2549,6 +2549,8 @@ class SLAM():
 
         # start optimization 
         data_loader = DataLoader(self.dataset, num_workers=self.config['data']['num_workers'])
+        print ( "---------- tqdm len - no of iter?? ----------")
+        print ( len( data_loader ))
         #number of frames is initialized here
         for i, batch in tqdm(enumerate(data_loader)):
             cur_frame_id = batch["frame_id"].item()
