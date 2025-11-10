@@ -303,7 +303,7 @@ def convert_poses_dummy(c2w_list, N, scale, gt=True, start_id=0):
         c2w_list[idx][:3, 3] /= scale
         poses.append(get_tensor_from_camera(c2w_list[idx], Tquad=True))
     poses = torch.stack(poses)
-    return poses, mask
+    return poses
 
 def pose_evaluation(poses_gt, poses_est, scale, path_to_save, i, img='pose', name='output.txt'):
     if type(poses_est) is list:
