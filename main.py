@@ -654,7 +654,7 @@ class SLAM():
             scales=scales,
             opacities=opacities,
             colors=colors,
-            viewmats=torch.linalg.inv(camtoworlds),  # [C, 4, 4]
+            viewmats=torch.linalg.inv(camtoworlds),  # [C, 4, 4] where error comes from here
             Ks=Ks,  # [C, 3, 3]
             width=width,
             height=height,
@@ -2305,6 +2305,8 @@ class SLAM():
                         self.est_c2w_data[idx] = self.get_poses_lie(ctrl_knot_se3, ctrl_knot_ts, ts, mode='linear').matrix().cuda()
                     if self.config["dataset"] == "rpg_evo":
                         self.pose_gt = self.est_c2w_data
+
+                    ## debug error comes here 
                     pose_evaluation(self.pose_gt, self.est_c2w_data, 1, path_to_save,"pose", f"tracking_f{frame_id:03}_{i:04}")
                     save_pose_as_kitti_evo(self.pose_gt, self.est_c2w_data, path_to_save, f"tracking_f{frame_id:03}_{i:04}")
         

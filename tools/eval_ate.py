@@ -274,17 +274,32 @@ def evaluate(poses_gt, poses_est, plot):
 def convert_poses(c2w_list, N, scale, gt=True, start_id=0):
     poses = []
     mask = torch.ones(N).bool()
+
     for idx in range(start_id, N+start_id):
         if gt:
             # some frame have `nan` or `inf` in gt pose of ScanNet, 
             # but our system have estimated camera pose for all frames
             # therefore, when calculating the pose error, we need to mask out invalid pose
             if torch.isinf(c2w_list[idx]).any():
+                ## debug statements :
+                
                 mask[idx] = 0
                 continue
             if torch.isnan(c2w_list[idx]).any():
+                ## debug statements :
+               
                 mask[idx] = 0
                 continue
+        c2w_list[idx][:3, 3] /= scale
+        poses.append(get_tensor_from_camera(c2w_list[idx], Tquad=True))
+    poses = torch.stack(poses)
+    return poses, mask
+
+
+def convert_poses_dummy(c2w_list, N, scale, gt=True, start_id=0):
+    poses = []
+    mask = torch.ones(N).bool()
+    for idx in range(start_id, N+start_id):
         c2w_list[idx][:3, 3] /= scale
         poses.append(get_tensor_from_camera(c2w_list[idx], Tquad=True))
     poses = torch.stack(poses)
@@ -299,8 +314,13 @@ def pose_evaluation(poses_gt, poses_est, scale, path_to_save, i, img='pose', nam
         N = len(poses_est)
         sorted_keys = sorted(list(poses_est.keys()))
         start_id = sorted_keys[0]
+
+        ## debug statements : 
+
+       # print ( "length of poses_est : ", len(poses_est) , " start_id : ", start_id , " N : ", N , "length of poses_gt : ", len(poses_gt) )
+
         poses_gt, mask = convert_poses(poses_gt, N, scale, start_id=start_id)
-        poses_est, _ = convert_poses(poses_est, N, scale, start_id=start_id)
+        poses_est= convert_poses_dummy(poses_est, N, scale, start_id=start_id)
     else:
         raise NotImplementedError("Wrong data type for pose evaluation")
     poses_est = poses_est[mask]
